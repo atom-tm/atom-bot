@@ -1,0 +1,16 @@
+{
+    "private": true,
+    "scripts": {
+        "start": "yarn install && bash loopbot.sh"
+    },
+    "main": "app.js",
+    "devDependencies": {},
+    "dependencies": {
+        "axios": "^0.18.1",
+        "bunyan": "^1.8.12",
+        "discord.js": "^11.5.1",
+        "dotenv": "^8.0.0",
+        "github-projects": "^1.0.1"
+    },
+    "license": "Apache-2.0"
+}
