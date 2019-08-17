@@ -7,7 +7,7 @@ echo "###########################################"
 
 while true
 do
-node app.js
+node .
 echo "AtomBot is crashed!"
 echo "Rebooting in:"
 for i in {3..1}

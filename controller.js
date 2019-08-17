@@ -1,4 +1,5 @@
 const Bot = require('./bot')
+const Commands = require('./commands')
 
 class BotController
 {
@@ -15,15 +16,33 @@ class BotController
         this.bot = bot;
     }
 
+    github()
+    {
+        console.log(arguments);
+    }
+
+    glo()
+    {
+        console.log(arguments);
+    }
+
+    command(name, msg, arg)
+    {
+        if (typeof Commands[name] === 'function') {
+            Commands[name](this.bot, msg, arg);
+        }
+    }
+
     message(msg)
     {
         if (msg.author.id === this.bot.user.id) return;
-        if (!this.bot.issues) return;
+        if (!this.bot.cards) return;
 
         const text = msg.cleanContent.trim();
         const [_, title, __, body] = text.match(/^TODO:\s*([^-]+)($|\s+\-\s*(.*))/i) || [];
+        const column_id = this.bot.column;
         if (title) {
-            this.bot.issues.create({ title, body }, (err, data) => {
+            this.bot.cards.create({ title, body, column_id }, (err, data) => {
                 if (err) {
                     console.error(err);
                 } else {
