@@ -16,12 +16,12 @@ class BotController
         this.bot = bot;
     }
 
-    github()
+    github(event, data)
     {
         console.log(arguments);
     }
 
-    glo()
+    glo(event, data)
     {
         console.log(arguments);
     }

@@ -51,7 +51,7 @@ class Webhook extends EventEmitter
             return this.handleError(req, res, 'No event found in the request');
         }
 
-        const sign = req.headers[this.signatureHeader] || '';
+        const sign = req.headers[this.signatureHeader];
         if (this.secret && !sign) {
             return this.handleError(req, res, 'No signature found in the request');
         }
