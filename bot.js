@@ -50,8 +50,8 @@ class Bot extends EventEmitter
         console.log('[Discord] Bot started');
         if (!this.githubWebhook && !this.gloWebhook) return;
 
-        this[webApp].listen(process.env.PORT || 8090, () => {
-          console.log('[Express] WebApp started')
+        this[webApp].listen(this.port, () => {
+          console.log('[Express] WebApp started');
         });
     }
 
@@ -116,6 +116,7 @@ class Bot extends EventEmitter
             this[configureGlo](params);
         }
 
+        this.port = params.port || process.env.PORT || 8090;
         this.prefix = params.prefix || 'a!';
     }
 }

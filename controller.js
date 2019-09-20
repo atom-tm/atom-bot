@@ -39,7 +39,7 @@ class BotController
         if (!this.bot.cards) return;
 
         const text = msg.cleanContent.trim();
-        const [_, title, __, body] = text.match(/^TODO:\s*([^-]+)($|\s+\-\s*(.*))/i) || [];
+        const [_, title, __, body] = text.match(/^TODO:\s*([^-]+)($|\s+\-\s*([^]*))/i) || [];
         const column_id = this.bot.column;
         if (title) {
             this.bot.cards.create({ title, body, column_id }, (err, data) => {
