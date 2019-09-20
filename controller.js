@@ -38,15 +38,21 @@ class BotController
         if (msg.author.id === this.bot.user.id) return;
         if (!this.bot.cards) return;
 
-        const text = msg.cleanContent.trim();
-        const [_, title, __, body] = text.match(/^TODO:\s*([^-]+)($|\s+\-\s*([^]*))/i) || [];
         const column_id = this.bot.column;
+        const text = msg.cleanContent.trim();
+        let [_, title, __, body] = text.match(/^TODO:\s*([^-]+)($|\s+\-\s*([^]*))/i) || [];
         if (title) {
-            this.bot.cards.create({ title, body, column_id }, (err, data) => {
+            if (body === undefined) {
+                body = `Source: ${msg.url}`;
+            } else {
+                body = `${body}\n${'_'.repeat(40)}\nSource: ${msg.url}`;
+            }
+            this.bot.cards.create({ title, body, column_id }, (err, response) => {
                 if (err) {
                     console.error(err);
                 } else {
-                    msg.reply(`Создана задача: ${data.html_url}`);
+                    const link = response.data.content_url.replace('api.github.com/repos', 'github.com');
+                    msg.reply(`Создана задача: ${link}`);
                 }
             });
         } else if (text.startsWith('TODO')) {
