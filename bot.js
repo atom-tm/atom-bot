@@ -60,7 +60,7 @@ class Bot extends EventEmitter
         const [ _, command, __, arg ] = message.cleanContent.match(`^\\s*${this.prefix}(\\S+)(\\s*$|\\s+(.+))`) || [];
         if (command) {
             this.emit('command', command, message, arg);
-            message.reply(`Получена команда '${command}' с аргументом ${data}`); //debug
+            message.reply(`Получена команда '${command}' с аргументом ${arg}`); //debug
         } else {
             this.emit('message', message);
         }
