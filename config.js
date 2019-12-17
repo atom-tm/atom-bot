@@ -1,6 +1,8 @@
 require('dotenv').config();
 
 module.exports = {
+    dbName: process.env.DB_NAME,
+    dbUri: process.env.DB_URI,
     webhookSecret: process.env.WEBHOOK_SECRET,
     gloToken: process.env.GLO_TOKEN,
     discordToken: process.env.DISCORD_TOKEN,

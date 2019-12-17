@@ -6,6 +6,7 @@ const bodyParser = require('body-parser')
 const { github } = require('github-projects')
 const GithubWebhook = require('./middleware/github')
 const GloWebhook = require('./middleware/glo')
+const storage = require('./storage')
 
 const startWebApp = Symbol('startWebApp')
 const configureDiscord = Symbol('configureDiscord')
@@ -114,6 +115,11 @@ class Bot extends EventEmitter
         }
         if (typeof params.gloToken == 'string') {
             this[configureGlo](params);
+        }
+        if (typeof params.dbName == 'string' && typeof params.dbUri == 'string') {
+            this.db = new storage.Mongo(params);
+        } else {
+            this.db = new storage.Memory(params);
         }
 
         this.port = params.port || process.env.PORT || 8090;
